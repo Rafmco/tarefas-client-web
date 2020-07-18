@@ -11,7 +11,11 @@
             <v-icon>mdi-plus-circle-outline</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Nova Tarefa</v-list-item-title>
+            <v-list-item-title
+              @click="abrirTarefa()"
+            >
+              Nova Tarefa
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
@@ -206,7 +210,7 @@
                           >
                             mdi-check-circle-outline
                           </v-icon>
-                          <spam><h6>Realizar Tarefa 2</h6></spam>
+                          <span><h6>Realizar Tarefa 2</h6></span>
                         </v-list-item-title>
                         <v-list-item-subtitle class="text-start ma-0 pa-0">
                           7:00 a.m.
@@ -234,7 +238,7 @@
                           >
                             mdi-radiobox-blank
                           </v-icon>
-                          <spam><h6>Realizar Tarefa 3</h6></spam>
+                          <span><h6>Realizar Tarefa 3</h6></span>
                         </v-list-item-title>
                         <v-list-item-subtitle class="text-start ma-0 pa-0">
                           02:00 p.m.
@@ -243,6 +247,19 @@
                     </v-list-item>
                   </v-card-text>
                 </v-card>
+
+                <!-- <div id="app">
+                  <quill-editor
+                    ref="myTextEditor"
+                    v-model="content"
+                    :config="editorOption">
+                  </quill-editor>
+                </div> -->
+                <div id="app">
+                  <!-- <img width="25%" src="./assets/logo.png"> -->
+                  <quill v-model="content" output="html"/>
+                </div>
+
               </v-tab-item>
 
               <v-tab-item>
@@ -346,11 +363,41 @@
       <v-spacer></v-spacer>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
+
+    <modal
+      :modal="modalTarefa"
+      :maisOpcoes="false"
+
+      @cancelar="resetInfo()"
+      @fechar="resetInfo()"
+
+      acaoForm
+      cancelar
+      titulo="Tarefa"
+      largura="1200"
+      ref="modalTarefa"
+    >
+      <!-- <div id="app">
+        <quill-editor
+          ref="myTextEditor"
+          v-model="content"
+          :config="editorOption">
+        </quill-editor>
+      </div> -->
+      <div id="app">
+        <!-- <img width="25%" src="./assets/logo.png"> -->
+        <quill v-model="content" output="html"/>
+      </div>
+
+    </modal>
+
   </v-app>
 </template>
 
 <script>
+
 export default {
+  name: 'App',
   created () {
     this.$vuetify.theme.dark = true
   },
@@ -358,6 +405,9 @@ export default {
     source: String
   },
   data: () => ({
+    content: '<h1>Hello World</h1><p>Here is some text</p',
+    editorOption: {},
+
     drawerLeft: null,
     drawerRight: null,
 
@@ -375,7 +425,9 @@ export default {
     value: '',
     events: [],
     colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-    names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party']
+    names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
+
+    modalTarefa: false
   }),
 
   methods: {
@@ -410,6 +462,16 @@ export default {
     },
     rnd (a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a
+    },
+    resetInfo () {
+      this.modalTarefa = false
+    },
+    async abrirTarefa () {
+      this.loading = true
+      console.log('tarefa')
+      this.modalTarefa = true
+
+      this.loading = false
     }
   }
 }
