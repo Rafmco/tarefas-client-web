@@ -22,3 +22,6 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+- https://vuejsfeed.com/blog/intergrate-quill-editor-in-vue-js-2-projects
+- https://www.npmjs.com/package/vue-quill
