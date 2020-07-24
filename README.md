@@ -20,6 +20,16 @@ yarn build
 yarn lint
 ```
 
+### Dedent
+```
+yarn add dedent
+```
+
+### Days JS
+```
+npm install dayjs
+```
+
 ### Gantt Elastic
 ```
 npm install gantt-elastic
