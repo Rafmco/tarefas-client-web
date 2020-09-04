@@ -5,6 +5,11 @@
 yarn install
 ```
 
+### Server
+```
+node server.js
+```
+
 ### Compiles and hot-reloads for development
 ```
 yarn serve
